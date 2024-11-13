@@ -1,0 +1,20 @@
+services:
+  net:
+    image: tailscale/tailscale:v1.76
+    environment:
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+    networks:
+      vpn:
+
+volumes:
+  state:
+
+networks:
+  vpn:
